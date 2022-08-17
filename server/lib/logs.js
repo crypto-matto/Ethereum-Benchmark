@@ -24,6 +24,7 @@ lib.append = async(file, str) =>{
         await close(fileDescriptor)
         return null
     }catch(e){
+        console.log('append error',e)
         return e.message
     }
 }

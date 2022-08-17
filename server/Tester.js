@@ -13,7 +13,7 @@ let t1=null
 let i = 0
 let fileNameStimulus
 
-const timeOut = 1/desiredRateTx * 1000
+const timeOut = 1/desiredRateTx * 4_000
 const numberOfTransactions = desiredRateTx * testTime
 const randomPrivateKeys = generateKeys(numberOfTransactions)
 
@@ -26,12 +26,15 @@ const logOutputAndPublish = (pK,i) => {
   if(STORE_DATA=="TRUE"){
     append(`${fileNameStimulus}`,`${txSendingTime.toString()},${(i+1).toString()}`)
   }
+  console.log(`Date.now(): ${Date.now()}, t1: ${t1}, numberOfTransactions: ${numberOfTransactions}`)
+  // publishData(pK,t1,numberOfTransactions)
   publishData(pK,t1,numberOfTransactions)
 }
 
-const sendTxs =  numberOfTransactions => {  
+const sendTxs = numberOfTransactions => {  
 
   if(i<numberOfTransactions){
+    console.log(`Initiate transaction ${i+1} of ${numberOfTransactions}`)
     //publishing
     logOutputAndPublish(randomPrivateKeys[i],i)
     
@@ -50,7 +53,7 @@ const sendTxs =  numberOfTransactions => {
     //recursive
     i++
     setTimeout(()=>{
-    sendTxs(numberOfTransactions)//using recursive strategy to achieve delay
+      sendTxs(numberOfTransactions)//using recursive strategy to achieve delay
     },0)
     //sendTxs(numberOfTransactions)//using recursive strategy to achieve delay
   }
@@ -61,7 +64,7 @@ const sendTxs =  numberOfTransactions => {
 const showStimulusResults = () => {
   console.log("\n************STIMULUS STATISTICS***************")
   const t2 = Date.now()
-  console.log("N° sent Tx: ",numberOfTransactions)
+  console.log("# of sent Tx: ",numberOfTransactions)
   const delta = (t2-t1)/1000
   console.log("time (s):", delta)
   const rate = numberOfTransactions/(delta)

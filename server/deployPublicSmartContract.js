@@ -8,8 +8,9 @@ web3.transactionConfirmationBlocks = 1;
 
 const SMART_CONTRACT_OPTION  = process.env.SMART_CONTRACT_OPTION
 
-const addressFrom = '0xfe3b557e8fb62b89f4916b721be55ceb828dbd73'
-const privKey = Buffer.from('8f2a55949038a9610f50fb23b5883af3b4ecb3c3bb792cbcefbd1542c692be63', 'hex')
+const addressFrom = '0x378c50D9264C63F3F92B806d4ee56E9D86FfB3Ec'
+// Add privKey in 1st parameter
+const privKey = Buffer.from('', 'hex')
 
 let contractData
 
@@ -25,6 +26,7 @@ chooseSmartByteCode()
 
 const deploy = async () => {
   console.log("#######################Deploying smart contract#######################")
+  console.log('contractData', contractData)
   return await deploySmartContract(contractData,addressFrom,privKey)
 }
 
